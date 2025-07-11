@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eChampions - قرعة دوري الأبطال</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --efootball-blue: #0a1f3a;
+            --efootball-dark: #061224;
+            --efootball-accent: #00a8e1;
+            --efootball-green: #00ff87;
+            --efootball-red: #ff2d55;
+            --efootball-gold: #ffd700;
+            --efootball-light: #e6f7ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--efootball-dark), var(--efootball-blue));
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: url('https://example.com/efootball-header-bg.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid var(--efootball-accent);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 31, 58, 0.8);
+        }
+
+        header > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--efootball-green);
+            text-shadow: 0 0 10px rgba(0, 255, 135, 0.5);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--efootball-green), var(--efootball-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .main-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: rgba(6, 18, 36, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 168, 225, 0.2);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 168, 225, 0.3);
+        }
+
+        .card-title {
+            color: var(--efootball-green);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--efootball-accent);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            font-size: 1.2em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--efootball-light);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(10, 31, 58, 0.7);
+            border: 1px solid rgba(0, 168, 225, 0.3);
+            border-radius: 6px;
+            font-size: 1rem;
+            color: white;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--efootball-accent);
+            box-shadow: 0 0 0 2px rgba(0, 168, 225, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 15px;
+            background: linear-gradient(to right, var(--efootball-accent), var(--efootball-green));
+            color: var(--efootball-dark);
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 168, 225, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to right, #6c757d, #495057);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(to right, #5a6268, #3d4348);
+        }
+
+        .btn-danger {
+            background: linear-gradient(to right, var(--efootball-red), #ff6b6b);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(to right, var(--efootball-green), #00cc7a);
+            color: var(--efootball-dark);
+        }
+
+        .btn-gold {
+            background: linear-gradient(to right, var(--efootball-gold), #ffc107);
+            color: var(--efootball-dark);
+        }
+
+        .team-list, .players-list {
+            list-style: none;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .team-item, .player-item {
+            background: rgba(10, 31, 58, 0.5);
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid var(--efootball-accent);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .team-item:hover, .player-item:hover {
+            transform: translateY(-3px);
+            background: rgba(10, 31, 58, 0.7);
+        }
+
+        .team-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid var(--efootball-accent);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .team-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .team-player {
+            font-size: 0.9rem;
+            color: var(--efootball-light);
+        }
+
+        .player-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .player-team {
+            font-size: 0.9rem;
+            color: var(--efootball-light);
+        }
+
+        .player-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .online {
+            background-color: var(--efootball-green);
+            box-shadow: 0 0 5px var(--efootball-green);
+        }
+
+        .offline {
+            background-color: var(--efootball-red);
+        }
+
+        .matches-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .match-card {
+            background: rgba(10, 31, 58, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            border-top: 4px solid var(--efootball-accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--efootball-green), var(--efootball-accent));
+        }
+
+        .match-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .match-team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .match-team-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--efootball-accent);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .match-vs {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--efootball-green);
+            margin: 0 15px;
+            text-shadow: 0 0 5px rgba(0, 255, 135, 0.5);
+        }
+
+        .match-score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .match-score-input {
+            width: 50px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--efootball-accent);
+        }
+
+        .match-timer {
+            background: rgba(0, 168, 225, 0.1);
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            color: var(--efootball-green);
+            border: 1px solid rgba(0, 168, 225, 0.3);
+        }
+
+        .match-chat {
+            margin-top: 20px;
+            border-top: 1px solid rgba(0, 168, 225, 0.2);
+            padding-top: 15px;
+        }
+
+        .chat-messages {
+            height: 150px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--efootball-accent) transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: var(--efootball-accent);
+            border-radius: 3px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            background: rgba(10, 31, 58, 0.5);
+            border-left: 3px solid var(--efootball-accent);
+        }
+
+        .message-sender {
+            font-weight: bold;
+            color: var(--efootball-green);
+            margin-bottom: 3px;
+        }
+
+        .message-text {
+            font-size: 0.9rem;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(10, 31, 58, 0.7);
+            border: 1px solid rgba(0, 168, 225, 0.3);
+            border-radius: 5px;
+            color: white;
+        }
+
+        .chat-send-btn {
+            width: auto;
+            padding: 10px 15px;
+            background: var(--efootball-accent);
+            color: var(--efootball-dark);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .room-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: rgba(0, 168, 225, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 168, 225, 0.2);
+        }
+
+        .room-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--efootball-green);
+        }
+
+        .room-code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-family: monospace;
+            color: var(--efootball-accent);
+            border: 1px solid var(--efootball-accent);
+        }
+
+        .copy-btn {
+            width: auto;
+            padding: 8px 15px;
+            margin-left: 10px;
+            font-size: 0.9rem;
+            background: rgba(0, 168, 225, 0.2);
+            border: 1px solid var(--efootball-accent);
+        }
+
+        .prizes-section {
+            margin-top: 30px;
+        }
+
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .prize-card {
+            background: rgba(6, 18, 36, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .prize-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--efootball-gold);
+        }
+
+        .prize-icon {
+            font-size: 2.5rem;
+            color: var(--efootball-gold);
+            margin-bottom: 15px;
+        }
+
+        .prize-title {
+            font-size: 1.2rem;
+            color: var(--efootball-gold);
+            margin-bottom: 10px;
+        }
+
+        .prize-desc {
+            font-size: 0.9rem;
+            color: var(--efootball-light);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--efootball-gold);
+            opacity: 0;
+            animation: confetti-fall 5s linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .draw-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(6, 18, 36, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .draw-content {
+            background: linear-gradient(135deg, var(--efootball-dark), var(--efootball-blue));
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            animation: zoomIn 0.5s;
+            border: 2px solid var(--efootball-accent);
+            box-shadow: 0 0 30px rgba(0, 168, 225, 0.5);
+            max-width: 90%;
+            width: 500px;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); }
+            to { transform: scale(1); }
+        }
+
+        .draw-team {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 168, 225, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .draw-team-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--efootball-accent);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .draw-vs {
+            font-size: 2rem;
+            color: var(--efootball-green);
+            margin: 30px 0;
+            text-shadow: 0 0 10px rgba(0, 255, 135, 0.5);
+        }
+
+        .game-integration {
+            margin-top: 30px;
+        }
+
+        .game-selector {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .game-option {
+            flex: 1;
+            background: rgba(10, 31, 58, 0.7);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .game-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 168, 225, 0.3);
+        }
+
+        .game-option.selected {
+            border-color: var(--efootball-green);
+            background: rgba(0, 255, 135, 0.1);
+        }
+
+        .game-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .game-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .auto-results {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 168, 225, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 168, 225, 0.3);
+        }
+
+        .auto-results-title {
+            font-size: 1.1rem;
+            color: var(--efootball-green);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .auto-results-btn {
+            width: auto;
+            padding: 8px 15px;
+            margin-top: 10px;
+            background: var(--efootball-accent);
+            color: var(--efootball-dark);
+        }
+
+        @media (max-width: 768px) {
+            .matches-container, .team-list, .players-list, .prizes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-selector {
+                flex-direction: column;
+            }
+            
+            .draw-team {
+                font-size: 1.5rem;
+                flex-direction: column;
+            }
+            
+            .draw-team-logo {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-trophy"></i>
+        </div>
+        <h1>eChampions</h1>
+        <p>نظم قرعة دوري الأبطال مع أصدقائك</p>
+    </header>
+
+    <div class="container">
+        <!-- شاشة تسجيل الدخول -->
+        <div id="loginSection" class="main-section">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</h2>
+                <div class="form-group">
+                    <label for="loginPlayerName">اسم اللاعب</label>
+                    <input type="text" id="loginPlayerName" placeholder="أدخل اسم اللاعب">
+                </div>
+                <button id="loginBtn" class="btn-success">
+                    <i class="fas fa-play"></i> بدء اللعب
+                </button>
+            </div>
+        </div>
+
+        <!-- شاشة اختيار الغرفة -->
+        <div id="roomSelectionSection" class="main-section hidden">
+            <div class="card">
+                <h2 class="card-title"><i class="fas fa-door-open"></i> اختر غرفة</h2>
+                <div class="form-group">
+                    <label for="roomSearch">ابحث عن غرفة</label>
+                    <input type="text" id="roomSearch" placeholder="ابحث باسم الغرفة أو الكود">
+                </div>
+                
+                <div id="publicRoomsList" class="team-list">
+                    <!-- الغرف العامة ستظهر هنا -->
+                </div>
+                
+                <button id="createNewRoomBtn" class="btn-secondary">
+                    <i clas
